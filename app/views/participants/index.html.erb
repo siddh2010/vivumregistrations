@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Participants</h1>
+<table id="participantsTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+              <th>Name</th>
+              <th>School</th>
+              <th>Dob</th>
+              <th>Checked in</th>
+              <th>Events</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @participants.each do |participant| %>
+            <tr>
+              <td><%=link_to participant.name, participant %></td>
+              <td><%= participant.school.name %></td>
+              <td><%= participant.dob %></td>
+              <td><%if participant.checked_in == false%>
+                    <%=form_for participant do |f|%>
+                      <%= f.hidden_field :checked_in, value: true%>
+                      <%= f.submit "Check in", data: { confirm: "Are you sure you want to check in " + participant.name + "?" }, class: "btn btn-success"%>
+                    <%end%>
+                  <%else%>
+                    <%=form_for participant do |f|%>
+                      <%= f.hidden_field :checked_in, value: false%>
+                      <%= f.submit "Undo Check in", data: { confirm: "Are you sure you want to check out " + participant.name + "?" }, class: "btn btn-danger"%>
+                    <% end %>
+                  <% end %>
+              </td>
+              <td>
+                Todo
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+            <tr>
+              <th>Name</th>
+              <th>School</th>
+              <th>Dob</th>
+              <th>Checked in</th>
+              <th>Events</th>
+            </tr>
+        </tfoot>
+    </table>
+
+<br>
+
+<%= link_to 'New Participant', new_participant_path %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#participantsTable').DataTable();
+} );
+</script>
