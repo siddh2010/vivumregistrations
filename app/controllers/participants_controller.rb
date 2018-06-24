@@ -24,7 +24,7 @@ class ParticipantsController < ApplicationController
   # POST /participants
   # POST /participants.json
   def create
-    @participant = Participant.new(params[:participant].permit(:name, :school_id, :dob, :event_ids, :checked_in))
+    @participant = Participant.new(params[:participant].permit(:name, :dob, :checked_in, :school_id, event_ids:[]))
     if @participant.save
       redirect_to root_path, notice: "Participant created!"
     else

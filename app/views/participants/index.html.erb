@@ -30,7 +30,7 @@
                   <% end %>
               </td>
               <td>
-                Todo
+                <%=participant.events.map(&:name).join(", ")%>
               </td>
             </tr>
           <% end %>
