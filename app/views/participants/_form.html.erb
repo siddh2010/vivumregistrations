@@ -25,7 +25,10 @@
     <%= form.label :dob %>
     <%= form.date_select :dob, id: :participant_dob %>
   </div>
-
+  <div class="field">
+    <%= form.label :events%>
+    <%= form.collection_check_boxes :event_ids, Event.all, :id, :name%><br/>
+  </div>
   <div class="field">
     <%= form.label :checked_in %>
     <%= form.check_box :checked_in, id: :participant_checked_in %>

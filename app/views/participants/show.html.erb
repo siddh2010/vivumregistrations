@@ -14,7 +14,14 @@
   <strong>Dob:</strong>
   <%= @participant.dob %>
 </p>
-
+<p>
+  <strong>Events:</strong>
+  <ol>
+    <%@participant.events.each do |event|%>
+        <li><%=event%></li>
+  <% end %>
+  </ol>
+</p>
 <p>
   <strong>Checked in:</strong>
   <%= @participant.checked_in %>

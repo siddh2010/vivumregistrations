@@ -1,5 +1,5 @@
 class ParticipantsController < ApplicationController
-  before_action :set_participant, only: [:show, :edit, :update, :destroy]
+  before_action :set_participant, only: [:show, :edit, :update, :destroy, event_ids:[]]
 
   # GET /participants
   # GET /participants.json
@@ -24,16 +24,11 @@ class ParticipantsController < ApplicationController
   # POST /participants
   # POST /participants.json
   def create
-    @participant = Participant.new(participant_params)
-
-    respond_to do |format|
-      if @participant.save
-        format.html { redirect_to @participant, notice: 'Participant was successfully created.' }
-        format.json { render :show, status: :created, location: @participant }
-      else
-        format.html { render :new }
-        format.json { render json: @participant.errors, status: :unprocessable_entity }
-      end
+    @participant = Participant.new(params[:participant].permit(:name, :school_id, :dob, :event_ids, :checked_in))
+    if @participant.save
+      redirect_to root_path, notice: "Participant created!"
+    else
+      render action:"new"
     end
   end
 
